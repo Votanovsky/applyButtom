@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Плющим всякое</title>
+</head>
+<body>
+    <div class="center">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="filter center">
+          <filter id="filter">
+            <feTurbulence 
+       OCTAVES='2'
+       baseFrequency="0.025 0.005" stitchTiles="stitch" type="fractalNoise" result="glitch" id="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="glitch" scale="0" id="displacement"/>
+          </filter>
+        </svg>
+        <img class="apply_button" src="apply.png" alt="">
+    </div>
+
+
+    <style>
+        .apply_button {
+        width: 320px;
+        height: 320px;
+        -webkit-filter: url(#filter);
+                filter: url(#filter);
+        overflow: hidden;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+    let displacement = document.getElementById('displacement');
+    let turbulence = document.getElementById('turbulence');
+  
+    let PowerA = Power1;
+    let PowerB = Power2;
+    let PowerC = Power3;
+  
+    let tl = gsap.timeline({ repeat: -1, repeatDelay: 2 });
+  
+    tl
+    .fromTo( displacement, 0.9, {attr:{ scale:0 }}, {attr:{ scale:0 }, ease:PowerA.easeOut})
+    //init pause
+    .fromTo( displacement, 0.6, {attr:{ scale:0 }}, {attr:{ scale:150 }, ease:PowerA.easeOut})
+    .fromTo( displacement, 0.6, {attr:{ scale:150 }}, {attr:{ scale:-20 }, ease:PowerA.easeIn} )
+    .fromTo( displacement, 0.6, {attr:{ scale:-20 }}, {attr:{ scale:-120}, ease:PowerA.easeOut} )
+    .fromTo( displacement, 0.6, {attr:{ scale:-120 }}, {attr:{ scale:30 }, ease:PowerA.easeIn} )
+  
+    .fromTo( displacement, 0.6, {attr:{ scale:30 }}, {attr:{ scale:-65 }, ease:PowerC.easeInOut} )
+    .fromTo( displacement, 3.2, {attr:{ scale:-65 }}, {attr:{ scale:2000 }, ease:PowerA.easeOut} )
+    .fromTo( displacement, 0.6, {attr:{ scale:2000 }}, {attr:{ scale:-80 }, ease:PowerB.easeInOut} )
+    .fromTo( displacement, 1.2, {attr:{ scale:-80 }}, {attr:{ scale:260 }, ease:PowerC.easeInOut} )
+      .fromTo( turbulence, 0.45, {attr:{ baseFrequency:"0.025 0.0033" }}, {attr:{ baseFrequency:"0.0025 0.067" }, ease:PowerA.easeIn} )
+    
+    .fromTo( displacement, 0.9, {attr:{ scale:260 }}, {attr:{ scale:0 }, ease:PowerC.easeInOut}, "-=0.4")
+    
+    
+    </script>
+</body>
+</html>
